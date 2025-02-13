@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 200px; /* Adjust width as needed */
+        }
+        #result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>STUDENT MARKS</h2>
+    <form id="cgpaForm" method="post" action="mark.php">
+        <label for="studentName">Student Name:</label>
+        <input type="text" id="studentName" name="studentName" required><br>
+        
+        <label for="subject1">Operating system:</label>
+        <input type="number" id="subject1" name="subject1" min="0" max="100" required><br>
+        
+        <label for="subject2">Computer networks:</label>
+        <input type="number" id="subject2" name="subject2" min="0" max="100" required><br>
+        
+        <label for="subject3">Statistics:</label>
+        <input type="number" id="subject3" name="subject3" min="0" max="100" required><br>
+        
+        <label for="subject4">DBMS:</label>
+        <input type="number" id="subject4" name="subject4" min="0" max="100" required><br>
+        
+        <label for="subject5">JAVA:</label>
+        <input type="number" id="subject5" name="subject5" min="0" max="100" required><br>
+        <br>
+        
+        <button type="submit">Calculate CGPA</button>
+    </form>
+    
+    <div id="result">
+        <h3>: <span id="cgpaValue">-</span></h3>
+    </div>
+    
+    <script>
+        // JavaScript function remains the same as provided earlier
+        function calculateCGPA() {
+            var totalMarks = 0;
+            var totalSubjects = 5; // Assuming 5 subjects for this example
+            var gradePoints = {
+                'A+': 4.0,
+                'A': 4.0,
+                'A-': 3.7,
+                'B+': 3.3,
+                'B': 3.0,
+                'B-': 2.7,
+                'C+': 2.3,
+                'C': 2.0,
+                'C-': 1.7,
+                'D+': 1.3,
+                'D': 1.0,
+                'F': 0
+            };
+            
+            // Get marks from input fields
+            for (var i = 1; i <= totalSubjects; i++) {
+                var mark = parseFloat(document.getElementById('subject' + i).value);
+                totalMarks += mark;
+            }
+            
+            // Calculate average marks
+            var averageMarks = totalMarks / totalSubjects;
+            
+            // Determine CGPA based on average marks
+            var cgpa;
+            if (averageMarks >= 90) {
+                cgpa = gradePoints['A+'];
+            } else if (averageMarks >= 80) {
+                cgpa = gradePoints['A'];
+            } else if (averageMarks >= 75) {
+                cgpa = gradePoints['A-'];
+            } else if (averageMarks >= 70) {
+                cgpa = gradePoints['B+'];
+            } else if (averageMarks >= 65) {
+                cgpa = gradePoints['B'];
+            } else if (averageMarks >= 60) {
+                cgpa = gradePoints['B-'];
+            } else if (averageMarks >= 55) {
+                cgpa = gradePoints['C+'];
+            } else if (averageMarks >= 50) {
+                cgpa = gradePoints['C'];
+            } else if (averageMarks >= 45) {
+                cgpa = gradePoints['C-'];
+            } else if (averageMarks >= 40) {
+                cgpa = gradePoints['D+'];
+            } else if (averageMarks >= 35) {
+                cgpa = gradePoints['D'];
+            } else {
+                cgpa = gradePoints['F'];
+            }
+            
+            // Update the CGPA value on the page
+            document.getElementById('cgpaValue').textContent = cgpa.toFixed(2);
+        }
+    </script>
+</body>
+</html>
